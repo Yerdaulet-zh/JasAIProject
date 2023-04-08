@@ -41,6 +41,7 @@ class TRdataset(Dataset):
 
 
 # dataset class for the other architecture
+
 class dataset(Dataset):
     def __init__(self, df, encoder, max_sequence=19, transformer=None): # max_sequence = 9
         self.encoder = encoder
