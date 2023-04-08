@@ -1,5 +1,5 @@
 import torch
-from model import Architecture
+from models import Architecture
 
 
 model = Architecture(num_classes=37).cuda()
