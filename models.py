@@ -137,22 +137,7 @@ class SqueezeExcitation(nn.Module):
     def forward(self, x):
         return x * self.se(x)
 
-
-
-class ChannelShuffle(nn.Module):
-    def __init__(self, num_groups):
-        super(ChannelShuffle, self).__init__()
-        self.num_groups = num_groups
-
-    def forward(self, x: torch.FloatTensor):
-        batch_size, chs, h, w = x.shape
-        chs_per_group = chs // self.num_groups
-        x = torch.reshape(x, (batch_size, self.num_groups, chs_per_group, h, w))
-         # (batch_size, num_groups, chs_per_group, h, w)
-        x = x.transpose(1, 2)  # dim_1 and dim_2
-        out = torch.reshape(x, (batch_size, -1, h, w))
-        return out
-
+    
 
 class ShuffleUnit(nn.Module):
     def __init__(self, in_channels, reduced_dim):
@@ -161,7 +146,7 @@ class ShuffleUnit(nn.Module):
             nn.BatchNorm2d(in_channels),
             nn.Conv2d(in_channels, reduced_dim, kernel_size=1, stride=1),
             nn.ReLU(inplace=True),
-            ChannelShuffle(4)
+            # ChannelShuffle(4)
         )
         self.DWConv = nn.Sequential(
             # nn.Conv2d(out_channels, out_channels // 2, kernel_size=1, stride=1),
