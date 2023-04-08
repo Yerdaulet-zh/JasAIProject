@@ -4,7 +4,6 @@ from albumentations.pytorch import ToTensorV2
 
 with open("encoder.json", "r") as f:
     encoder = json.load(f)
-
     
 ocr_transformer = A.Compose([
     A.Resize(width=112, height=48),
